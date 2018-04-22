@@ -2,6 +2,7 @@
   "name": "experiments",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://elite174.github.io/experiments/",
   "dependencies": {
     "inferno": "^5.0.4",
     "inferno-scripts": "6.3.0"
@@ -11,5 +12,8 @@
     "build": "inferno-scripts build",
     "test": "inferno-scripts test --env=jsdom",
     "eject": "inferno-scripts eject"
+  },
+  "devDependencies": {
+    "gh-pages": "^1.1.0"
   }
 }
