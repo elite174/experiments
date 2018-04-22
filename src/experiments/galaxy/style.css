@@ -1,0 +1,13 @@
+.galaxy__back{
+  background-color: rgb(27, 27, 27);
+  height: 100%;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 3px white;
+}
