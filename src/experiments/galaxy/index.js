@@ -1,11 +1,11 @@
 import { Component } from 'inferno'
 import './style.css'
-import { random, setStyle, chooseFrom, arr } from '../../containers/utils';
+import { random, setStyle, chooseFrom, arr } from '../../utils';
 
 export default class Galaxy extends Component {
 
     layers = arr('star', 10)
-    speeds = arr(1, 10, 4.5)
+    speeds = arr(1, 10, 20)
 
     createStar = () => {
         let star = document.createElement('div')
@@ -45,19 +45,12 @@ export default class Galaxy extends Component {
 
         let spY = (y - halfHeight) / halfHeight;
 
-        let backX = spX * 5;
-        let frontX = spX * 10;
-
         for (let i in this.layers) {
-            setStyle(this.layers[i], 'left', spX * this.speeds[i], '%', 'star-left')
+            setStyle(this.layers[i], 'transform', `translateX(${spX * this.speeds[i]}px) translateY(${spY * this.speeds[i]}px)`)
         }
 
-        var backY = spY * 5;
-        var frontY = spY * 7;
+        setStyle('galaxy__back', 'background-position', spX * 20 + 'px center')
 
-        for (let i in this.layers) {
-            setStyle(this.layers[i], 'top', spY * this.speeds[i], '%', 'star-top')
-        }
     }
     render() {
         return <div className='galaxy__back' ref={self => this.self = self} onMouseMove={this.computeOffset}>

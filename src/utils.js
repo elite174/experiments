@@ -14,13 +14,18 @@ export const px = (number) => {
     return `${number}px`
 }
 
-export const setStyle = (className, property, value, unit, initValueAttr = undefined) => {
+export const setStyle = (className, property, value, unit = undefined, initValueAttr = undefined) => {
     let elements = document.getElementsByClassName(className)
     for (let i = 0; i < elements.length; i++) {
         if (initValueAttr !== undefined) {
             elements[i].style[property] = `${parseInt(elements[i].getAttribute(initValueAttr)) + value}${unit}`
         } else {
-            elements[i].style[property] = `${value}${unit}`
+            if (unit !== undefined) {
+                elements[i].style[property] = `${value}${unit}`
+            } else {
+                elements[i].style[property] = value
+            }
+
         }
     }
 }
