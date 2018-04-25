@@ -16,9 +16,21 @@
   height: 2px;
   background-color: rgb(245, 253, 255);
   border-radius: 50%;
-  box-shadow: 0 0 10px 3px white;
+  box-shadow: 0 0 5px 1px white;
+  animation-name: star-animation;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
 #app{
   overflow: hidden;
+}
+
+@keyframes star-animation{
+  from {
+    box-shadow: 0 0 5px 1px white;
+  }
+  to {
+    box-shadow: 0 0 5px 2px white;
+  }
 }

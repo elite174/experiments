@@ -15,23 +15,14 @@ export default class Galaxy extends Component {
         let top = `${random(-5, 105)}%`
         star.style.left = left
         star.style.top = top
-        star.setAttribute('star-left', left)
-        star.setAttribute('star-top', top)
+        star.style.animationDuration = `${random(200, 1200)}ms`
         this.self.appendChild(star)
     }
     componentDidMount() {
-        let starCount = random(300, 400)
+        let starCount = random(400, 500)
         for (let i = 0; i < starCount; i++) {
             this.createStar()
         }
-    }
-    diamondSquare(n) {
-        let size = Math.pow(2, n) + 1
-        let matrix = []
-        for (let i = 0; i < size; i++) {
-            matrix[i] = arr(0, size, 0)
-        }
-
     }
     computeOffset = (e) => {
         let x = e.pageX;
@@ -53,7 +44,11 @@ export default class Galaxy extends Component {
 
     }
     render() {
-        return <div className='galaxy__back' ref={self => this.self = self} onMouseMove={this.computeOffset}>
-        </div>
+        return <div className='galaxy__back' ref={self => this.self = self} 
+        onMouseMove={(e) => { window.requestAnimationFrame(() => { this.computeOffset(e) }) }}>
+            <audio id='video' style={{left:'150px', position:'absolute', top: 159}}
+            controls="controls"
+            src="http://storage.mp3cc.org/listen/99278140/cVpnRlpvRVUyQ28wcjJHNXZtL1lOMmtJQWkxdmtTUlBrV1hBS0MrQ2V5SDc4M3RJbm1LL2hmSnRPaUJMYXJ1c0lmTWZPa2pQNUNZSlZVdFhvSVd6TGk1NGJ6RmJRamZFSGxpRytUMEhJcEpaQ0YrY0dCSHlRSldKdXhHWmtZV2E/mass-effect-end-titles-theme-ost_(mp3.cc).mp3" ></audio>
+        </div >
     }
 }
