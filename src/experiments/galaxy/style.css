@@ -1,32 +1,77 @@
+.galaxy {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
 .galaxy__back {
   background-color: rgb(27, 27, 27);
-  background-image: url(assets/galaxy-1.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
+  transition-property: background-image;
+  transition-duration: 1s;
   height: 110%;
   width: 110%;
-  margin-left: -5%;
-  margin-top: -5%;
+  padding-left: -5%;
+  padding-top: -5%;
 }
 
-.star {
+.galaxy__back--1 {
+  background-image: url(assets/galaxy-1.jpg);
+}
+
+.galaxy__back--2 {
+  background-image: url(assets/galaxy-2.jpg);
+}
+
+.galaxy__back--3 {
+  background-image: url(assets/galaxy-3.jpg);
+}
+
+.galaxy__back--4 {
+  background-image: url(assets/galaxy-4.jpg);
+}
+
+.galaxy__back--5 {
+  background-image: url(assets/galaxy-5.jpg);
+}
+
+.galaxy__button {
   position: absolute;
-  width: 2px;
-  height: 2px;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  right: 0;
+  top: 50px;
+  background-color: red;
+}
+
+.galaxy__star {
+  position: absolute;
   background-color: rgb(245, 253, 255);
   border-radius: 50%;
-  box-shadow: 0 0 5px 1px white;
+  box-shadow: 0 0 3px 1px white;
   animation-name: star-animation;
   animation-iteration-count: infinite;
   animation-direction: alternate;
 }
 
-#app{
+.galaxy__star--1 {
+  width: 2px;
+  height: 2px;
+}
+
+.galaxy__star--2 {
+  width: 1px;
+  height: 1px;
+}
+
+#app {
   overflow: hidden;
 }
 
-@keyframes star-animation{
+@keyframes star-animation {
   from {
     box-shadow: 0 0 5px 1px white;
   }
