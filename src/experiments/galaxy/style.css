@@ -2,6 +2,8 @@
   width: 100%;
   height: 100%;
   position: relative;
+  --white: rgba(255, 255, 255, 0.5);
+  --white-hover: rgba(255, 255, 255, 0.9);
 }
 
 .galaxy__back {
@@ -69,6 +71,36 @@
 
 #app {
   overflow: hidden;
+}
+
+.galaxy__button-control {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: fit-content;
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 15px;
+  align-items: center;
+}
+
+.galaxy__icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  margin-right: 40px;
+  color: var(--white);
+  transition-property: color, transform;
+  transition-duration: 500ms;
+  cursor: pointer;
+}
+
+.galaxy__icon:hover {
+  transform: scale(1.2);
+  color: var(--white-hover);
 }
 
 @keyframes star-animation {

@@ -1,0 +1,13 @@
+.galaxy-icon {
+    fill: rgba(255, 255, 255, 0.5);
+    transition-property: transform, fill;
+    transition-duration: 1s;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+}
+
+.galaxy-icon:hover {
+    transform: scale(1.2) rotate(360deg);
+    fill: rgba(255, 255, 255, 0.9);
+}
