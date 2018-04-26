@@ -5,7 +5,6 @@ import GalaxyIcon from './assets/icons/GalaxyIcon';
 
 
 export default class Galaxy extends Component {
-
     state = {
         galaxy: random(1, 5),
         muted: false,

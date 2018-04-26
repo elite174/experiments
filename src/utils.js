@@ -14,6 +14,37 @@ export const px = (number) => {
     return `${number}px`
 }
 
+export const throttle = (func, limit = 17) => {
+    let inThrottle
+    return function () {
+        if (!inThrottle) {
+            const args = arguments
+            const context = this
+            func.call(context, )
+            func.apply(context, args)
+            inThrottle = true
+            setTimeout(() => inThrottle = false, limit)
+        }
+    }
+}
+
+export const Scene = (func, fps = 17, args = []) => {
+    let timer = null
+    let paused = true
+    return {
+        pause: () => {
+            clearInterval(timer)
+            paused = true
+        },
+        play: () => {
+            paused = false
+            timer = setInterval(() => requestAnimationFrame(() => {
+                func(...args)
+            }), fps)
+        },
+    }
+}
+
 export const setStyle = (className, property, value, unit = undefined, initValueAttr = undefined) => {
     let elements = document.getElementsByClassName(className)
     for (let i = 0; i < elements.length; i++) {

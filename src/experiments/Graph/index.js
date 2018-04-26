@@ -22,7 +22,6 @@ export default class Graph extends Component {
             ctx.moveTo(parseInt(nodes[i].style.left) + 15, parseInt(nodes[i].style.top) + 15)
             ctx.lineTo(parseInt(nodes[i + 1].style.left) + this.radius, parseInt(nodes[i + 1].style.top) + this.radius)
             ctx.stroke()
-            
         }
     }
     render() {
