@@ -37,9 +37,15 @@ export const chooseFrom = (variants) => {
 export const arr = (initValue, count, term = 1) => {
     let array = []
     let initTerm = term
-    for (let i = 0; i < count; i++) {
-        array.push(initValue + initTerm)
-        initTerm += term
+    if (typeof (initValue) === 'function') {
+        for (let i = 0; i < count; i++) {
+            array.push(initValue())
+        }
+    } else {
+        for (let i = 0; i < count; i++) {
+            array.push(initValue + initTerm)
+            initTerm += term
+        }
     }
     return array
 }
