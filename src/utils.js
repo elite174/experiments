@@ -28,9 +28,10 @@ export const throttle = (func, limit = 17) => {
     }
 }
 
-export const Scene = (func, fps = 17, args = []) => {
+export const Scene = (func, fps = 60, args = []) => {
     let timer = null
     let paused = true
+    let time = Math.round(1000 / fps)
     return {
         pause: () => {
             clearInterval(timer)
@@ -40,8 +41,19 @@ export const Scene = (func, fps = 17, args = []) => {
             paused = false
             timer = setInterval(() => requestAnimationFrame(() => {
                 func(...args)
-            }), fps)
+            }), time)
         },
+        isPaused: () => {
+            return paused
+        },
+        setFPS: (fps) => {
+            time = 1000 / fps
+        },
+        destroy: () => {
+            timer = null
+            paused = null
+            time = null
+        }
     }
 }
 
