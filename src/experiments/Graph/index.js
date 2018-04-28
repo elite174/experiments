@@ -1,6 +1,7 @@
 import { Component } from 'inferno'
 import './style.css'
 import { random, arr, px, Scene } from '../../utils';
+import { Circle } from './models';
 
 export default class Graph extends Component {
     radius = 15
@@ -9,57 +10,48 @@ export default class Graph extends Component {
      * computations per frame
      */
     frameFunc = () => {
-        this.nodes.map(node => this.moveCircle(node))
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+        this.ctx.strokeStyle = "#000"
+        for (let node of this.nodes) {
+            node.move()
+            node.draw()
+        }
         this.drawLines()
     }
     createCircle = () => {
-        let circle = document.createElement('div')
-        circle.classList.add('graph__node')
-        circle.style.top = px(random(0, window.innerHeight))
-        circle.style.left = px(random(0, window.innerWidth))
-        circle.setAttribute('posX', parseInt(circle.style.left))
-        circle.setAttribute('posY', parseInt(circle.style.top))
-        circle.style.width = circle.style.height = px(random(20, 40))
-        circle.setAttribute('speed', random(30, 40) / 60)
-        circle.setAttribute('direction', 2 * random(0, 360) * Math.PI / 360)
+        let circle = new Circle(random(15, this.canvas.width - 15), random(15, this.canvas.height - 15), random(5, 15), random(50, 100), random(0, 360), this.ctx, this.canvas)
         return circle
     }
     getLength = (node1, node2) => {
-        if (Math.sqrt((parseInt(node1.style.top) - parseInt(node2.style.top)) ** 2 + (parseInt(node1.style.left) - parseInt(node2.style.left)) ** 2) < 300) {
-            return true
-        } else {
-            return false
-        }
+        let length = Math.sqrt(Math.pow(node1.positionX - node2.positionX, 2) + Math.pow(node1.positionY - node2.positionY, 2))
+        return length
     }
     drawLines() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
         for (let i = 0; i < this.nodes.length; i++) {
             for (let j = 0; j < this.nodes.length; j++) {
                 if (i === j) { continue }
-                if (this.getLength(this.nodes[i], this.nodes[j])) {
+                let l = this.getLength(this.nodes[i], this.nodes[j])
+                if (l > 50 && l < 250) {
+                    this.ctx.strokeStyle = `rgba(0,0,0,${0.000025 * l ** 2 - 0.0125 * l + 1.5625})`
                     this.ctx.beginPath()
-                    this.ctx.moveTo(parseInt(this.nodes[i].style.left) + 15, parseInt(this.nodes[i].style.top) + 15)
-                    this.ctx.lineTo(parseInt(this.nodes[j].style.left) + this.radius, parseInt(this.nodes[j].style.top) + this.radius)
+                    this.ctx.moveTo(this.nodes[i].positionX, this.nodes[i].positionY)
+                    this.ctx.lineTo(this.nodes[j].positionX, this.nodes[j].positionY)
                     this.ctx.stroke()
                 }
             }
         }
     }
-    moveCircle = (circle) => {
-        circle.setAttribute('posX', parseFloat(circle.getAttribute('posX')) + circle.getAttribute('speed') * Math.cos(circle.getAttribute('direction')))
-        circle.setAttribute('posY', parseFloat(circle.getAttribute('posY')) + circle.getAttribute('speed') * Math.sin(circle.getAttribute('direction')))
-        circle.style.top = px(Math.round(circle.getAttribute('posY')))
-        circle.style.left = px(Math.round(circle.getAttribute('posX')))
-    }
     componentDidMount() {
 
-        this.nodes = arr(this.createCircle, 40)
-        this.nodes.map(node => this.graph.appendChild(node))
+        this.ctx = this.canvas.getContext('2d')
+        this.nodes = arr(this.createCircle, 100)
+        for (let node of this.nodes) {
+            console.log(node)
+            node.draw()
+        }
         this.scene = Scene(this.frameFunc, 50)
-        this.ctx = this.canvas.getContext('2d');
-
         this.scene.play()
-        setTimeout(() => this.scene.pause(), 5000)
+        setTimeout(() => this.scene.pause(), 15000)
 
     }
     componentWillUnmount() {
