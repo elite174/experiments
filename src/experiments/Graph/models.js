@@ -1,3 +1,5 @@
+import { random } from "../../utils";
+
 /**
  * @param {px} startX
  * @param {px} startY
@@ -5,7 +7,8 @@
  * @param {px/sec} speed 
  * @param {angle: 0,360} direction 
  */
-export function Circle(startX, startY, radius, speed, direction, ctx, canvas) {
+export function Circle(startX, startY, radius, speed, direction, colorStart, ctx, canvas) {
+    this.color = `hsl(${random(colorStart, colorStart + 100)}, 80%, 45%)`
     this.radius = radius
     this.speed = speed / 60
     this.direction = direction * 2 * Math.PI / 360
@@ -29,8 +32,11 @@ export function Circle(startX, startY, radius, speed, direction, ctx, canvas) {
 
     this.draw = () => {
         this.ctx.beginPath();
+        this.ctx.stokeStyle = this.color
+        this.ctx.fillStyle = this.color
         this.ctx.arc(Math.round(this.positionX), Math.round(this.positionY), this.radius, 0, 2 * Math.PI);
         this.ctx.stroke();
+        this.ctx.fill()
     }
 
 }

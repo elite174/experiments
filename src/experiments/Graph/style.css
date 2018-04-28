@@ -4,10 +4,84 @@
     position: relative;
 }
 
-.graph__node{
+.graph__node {
     width: 30px;
     height: 30px;
     border-radius: 50%;
     border: 1px solid black;
     position: absolute;
+}
+
+.graph__flex {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    right: 0;
+    top: 0;
+    align-items: flex-start;
+    z-index: 2;
+}
+
+.graph__settings {
+    height: 100%;
+    width: 0;
+    transition-property: width;
+    transition-duration: 250ms;
+    background: linear-gradient(rgb(29, 28, 28), rgb(36, 33, 33));
+}
+
+.graph__settings.active {
+    width: 15%;
+}
+
+.graph__settings>.graph__settings__icon {
+    left: -60px;
+}
+
+.graph__icon{
+    cursor: pointer;
+    font-size: 30px;
+    transition-property: color, transform;
+    transition-duration: 250ms;
+    color: rgba(255, 255, 255, 0.5);
+    padding: 15px;
+}
+
+.graph__icon:hover {
+    transform: scale(1.2);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.graph__icon.animate:hover{
+    transform: scale(1.2) rotate(180deg);
+}
+
+.graph__button {
+    margin: 15px;
+    width: auto;
+    font-size: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.5);
+    border-radius: 3px;
+    text-align: center;
+    padding: 15px;
+    cursor: pointer;
+    transition-property: color, border-color;
+    transition-duration: 250ms;
+}
+
+.graph__button:hover {
+    color: rgba(255, 255, 255, 0.9);
+    border-color: rgba(255, 255, 255, 0.9);
+}
+
+.graph__button__panel{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    width: fit-content;
+    height: 60px;
 }
