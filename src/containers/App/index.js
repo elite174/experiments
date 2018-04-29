@@ -3,6 +3,7 @@ import { HashRouter, Link, Route } from 'inferno-router'
 import './style.css'
 import Loadable from '../Loadable';
 import GalaxyLoader from '../../loaders/GalaxyLoader';
+import Gallery from '../../components/Gallery';
 
 const Menu = () => {
     return <div>
@@ -17,11 +18,10 @@ export default class App extends Component {
     render() {
         return <HashRouter>
             <div className='root'>
-                <div>router</div>
-                <Route exact path={`${process.env.PUBLIC_URL}/`} component={Menu} />
-                <Route path={`${process.env.PUBLIC_URL}/galaxy`}
+                <Route exact path={`/`} component={Gallery} />
+                <Route path={`/galaxy`}
                     render={() => <Loadable loader={<GalaxyLoader />} toLoad={() => import('../../experiments/Galaxy')} />} />
-                <Route path={`${process.env.PUBLIC_URL}/graph`}
+                <Route path={`/graph`}
                     render={() => <Loadable loader={<div>Loading...</div>} toLoad={() => import('../../experiments/Graph')} />} />
             </div>
         </HashRouter>

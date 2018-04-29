@@ -1,0 +1,57 @@
+.gallery, .gallery__intro {
+    width: 100%;
+    height: 100%;
+}
+
+.gallery__intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(rgb(44, 44, 44), rgb(26, 26, 26))
+}
+
+.gallery__welcome {
+    font-size: 24px;
+    color: rgb(255, 255, 255);
+    animation-name: welcome_appear;
+    animation-duration: 2s;
+    margin-bottom: 60px;
+}
+
+.gallery__explore {
+    font-size: 24px;
+    color: rgb(255, 255, 255);
+    animation-name: explore_appear;
+    animation-duration: 4s;
+    cursor: pointer;
+    transition-property: transform;
+    transition-duration: 500ms;
+}
+
+.gallery__explore:hover {
+    transform: scale(1.2);
+}
+
+@keyframes welcome_appear {
+    from {
+        margin-top: 100px;
+        opacity: 0;
+    }
+    to {
+        margin-top: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes explore_appear {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

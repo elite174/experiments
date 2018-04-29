@@ -1,9 +1,8 @@
-
-*{
+* {
   box-sizing: inherit;
 }
 
-html{
+html {
   height: 100%;
   box-sizing: border-box;
 }
@@ -12,9 +11,9 @@ body {
   margin: 0;
   height: 100%;
   padding: 0;
-  font-family: "Open Sans", "lucida grande", "Segoe UI", arial, verdana, "lucida sans unicode", tahoma, sans-serif;
+  font-family: "Montserrat", "Open Sans", "lucida grande", "Segoe UI", arial, verdana, "lucida sans unicode", tahoma, sans-serif;
 }
 
-#app{
+#app {
   height: 100%;
 }
