@@ -1,6 +1,15 @@
 {
-  "main.css": "static/css/main.6ac452c0.css",
-  "main.css.map": "static/css/main.6ac452c0.css.map",
-  "main.js": "static/js/main.b142ad48.js",
-  "main.js.map": "static/js/main.b142ad48.js.map"
+  "main.css": "static/css/main.1fefb4ee.css",
+  "main.css.map": "static/css/main.1fefb4ee.css.map",
+  "main.js": "static/js/main.526334fb.js",
+  "main.js.map": "static/js/main.526334fb.js.map",
+  "static/js/0.da69512a.chunk.js": "static/js/0.da69512a.chunk.js",
+  "static/js/0.da69512a.chunk.js.map": "static/js/0.da69512a.chunk.js.map",
+  "static/js/1.33119625.chunk.js": "static/js/1.33119625.chunk.js",
+  "static/js/1.33119625.chunk.js.map": "static/js/1.33119625.chunk.js.map",
+  "static/media/galaxy-1.jpg": "static/media/galaxy-1.33ce2151.jpg",
+  "static/media/galaxy-2.jpg": "static/media/galaxy-2.1af7650c.jpg",
+  "static/media/galaxy-3.jpg": "static/media/galaxy-3.c53ab51d.jpg",
+  "static/media/galaxy-4.jpg": "static/media/galaxy-4.90512c5f.jpg",
+  "static/media/galaxy-5.jpg": "static/media/galaxy-5.882a4fa2.jpg"
 }
