@@ -42,7 +42,6 @@ export default class Graph extends Component {
                     this.grd = this.ctx.createLinearGradient(this.nodes[i].positionX, this.nodes[i].positionY, this.nodes[j].positionX, this.nodes[j].positionY)
                     this.grd.addColorStop(0, this.nodes[i].color.replace('alpha', `${0.000025 * this.l ** 2 - 0.0125 * this.l + 1.5625}`))
                     this.grd.addColorStop(1, this.nodes[j].color.replace('alpha', `${0.000025 * this.l ** 2 - 0.0125 * this.l + 1.5625}`))
-                    //this.ctx.strokeStyle = `rgba(0,0,0,${0.000025 * l ** 2 - 0.0125 * l + 1.5625})`
                     this.ctx.strokeStyle = this.grd;
                     this.ctx.beginPath()
                     this.ctx.moveTo(this.nodes[i].positionX, this.nodes[i].positionY)
@@ -88,6 +87,7 @@ export default class Graph extends Component {
     recreate = () => {
         this.scene.pause()
         this.componentDidMount()
+        this.setState({ paused: false })
     }
     render() {
         return <div className='graph' ref={graph => this.graph = graph}>

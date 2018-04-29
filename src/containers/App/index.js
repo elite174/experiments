@@ -17,6 +17,7 @@ export default class App extends Component {
     render() {
         return <HashRouter>
             <div className='root'>
+                <div>router</div>
                 <Route exact path={`${process.env.PUBLIC_URL}/`} component={Menu} />
                 <Route path={`${process.env.PUBLIC_URL}/galaxy`}
                     render={() => <Loadable loader={<GalaxyLoader />} toLoad={() => import('../../experiments/Galaxy')} />} />
