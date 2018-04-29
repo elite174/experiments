@@ -10,12 +10,13 @@ export default class Graph extends Component {
     /**
      * computations per frame
      */
+    grd = null
     frameFunc = () => {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
-        let grd = this.ctx.createLinearGradient(0, 0, 0, this.canvas.height)
-        grd.addColorStop(0, `hsl(${this.backColor},80%, 45%)`)
-        grd.addColorStop(1, `hsl(${this.backColor},80%, 25%)`)
-        this.ctx.fillStyle = grd
+        this.grd = this.ctx.createLinearGradient(0, 0, 0, this.canvas.height)
+        this.grd.addColorStop(0, `hsl(${this.backColor},80%, 25%)`)
+        this.grd.addColorStop(1, `hsl(${this.backColor},80%, 10%)`)
+        this.ctx.fillStyle = this.grd
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
         this.drawLines()
         for (let node of this.nodes) {
@@ -25,24 +26,24 @@ export default class Graph extends Component {
 
     }
     createCircle = () => {
-        let circle = new Circle(random(15, this.canvas.width - 15), random(15, this.canvas.height - 15), random(5, 7), random(50, 100), random(0, 360), this.nodeColor, this.ctx, this.canvas)
+        let circle = new Circle(random(15, this.canvas.width - 15), random(15, this.canvas.height - 15), random(3, 5), random(50, 100), random(0, 360), this.nodeColor, this.ctx, this.canvas)
         return circle
     }
     getLength = (node1, node2) => {
-        let length = Math.sqrt(Math.pow(node1.positionX - node2.positionX, 2) + Math.pow(node1.positionY - node2.positionY, 2))
-        return length
+        return Math.sqrt(Math.pow(node1.positionX - node2.positionX, 2) + Math.pow(node1.positionY - node2.positionY, 2))
     }
+    l = null
     drawLines() {
         for (let i = 0; i < this.nodes.length; i++) {
             for (let j = 0; j < this.nodes.length; j++) {
                 if (i === j) { continue }
-                let l = this.getLength(this.nodes[i], this.nodes[j])
-                if (l > 50 && l < 250) {
-                    let grd = this.ctx.createLinearGradient(this.nodes[i].positionX, this.nodes[i].positionY, this.nodes[j].positionX, this.nodes[j].positionY)
-                    grd.addColorStop(0, this.nodes[i].color)
-                    grd.addColorStop(1, this.nodes[j].color)
+                this.l = this.getLength(this.nodes[i], this.nodes[j])
+                if (this.l > 50 && this.l < 250) {
+                    this.grd = this.ctx.createLinearGradient(this.nodes[i].positionX, this.nodes[i].positionY, this.nodes[j].positionX, this.nodes[j].positionY)
+                    this.grd.addColorStop(0, this.nodes[i].color.replace('alpha', `${0.000025 * this.l ** 2 - 0.0125 * this.l + 1.5625}`))
+                    this.grd.addColorStop(1, this.nodes[j].color.replace('alpha', `${0.000025 * this.l ** 2 - 0.0125 * this.l + 1.5625}`))
                     //this.ctx.strokeStyle = `rgba(0,0,0,${0.000025 * l ** 2 - 0.0125 * l + 1.5625})`
-                    this.ctx.strokeStyle = grd;
+                    this.ctx.strokeStyle = this.grd;
                     this.ctx.beginPath()
                     this.ctx.moveTo(this.nodes[i].positionX, this.nodes[i].positionY)
                     this.ctx.lineTo(this.nodes[j].positionX, this.nodes[j].positionY)
@@ -53,16 +54,16 @@ export default class Graph extends Component {
     }
     genColors = () => {
 
-        this.nodeColor = random(0, 260)
-        this.backColor = this.nodeColor + 20
+        this.nodeColor = random(0, 360)
+        this.backColor = (this.nodeColor + 20) % 360
     }
     componentDidMount() {
         this.genColors()
         this.ctx = this.canvas.getContext('2d')
-        let grd = this.ctx.createLinearGradient(0, 0, 0, this.canvas.height)
-        grd.addColorStop(0, `hsl(${this.backColor}, 80%, 45%)`)
-        grd.addColorStop(1, `hsl(${this.backColor}, 80%, 25%)`)
-        this.ctx.fillStyle = grd
+        this.grd = this.ctx.createLinearGradient(0, 0, 0, this.canvas.height)
+        this.grd.addColorStop(0, `hsl(${this.backColor}, 80%, 25%)`)
+        this.grd.addColorStop(1, `hsl(${this.backColor}, 80%, 10%)`)
+        this.ctx.fillStyle = this.grd
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
         this.nodes = arr(this.createCircle, 100)
         this.drawLines()
@@ -84,17 +85,22 @@ export default class Graph extends Component {
             this.setState({ paused: true })
         }
     }
+    recreate = () => {
+        this.scene.pause()
+        this.componentDidMount()
+    }
     render() {
         return <div className='graph' ref={graph => this.graph = graph}>
             <div className='graph__button__panel'>
                 <i className='material-icons graph__icon' onClick={this.play}>{!this.state.paused ? 'pause' : 'play_arrow'}</i>
+                <i className='material-icons graph__icon' onClick={this.recreate}>share</i>
             </div>
-            <div className='graph__flex'>
+            {false && <div className='graph__flex'>
                 <div className='graph__settings' ref={settings => this.settings = settings}>
                     <div className='graph__button' onClick={this.genColors}>GENERATE</div>
                 </div>
                 <i className='material-icons graph__icon animate' onClick={() => this.settings.classList.toggle('active')}>settings</i>
-            </div>
+            </div>}
             <canvas ref={canvas => this.canvas = canvas} className='graph__canvas' width={window.innerWidth} height={window.innerHeight}>
             </canvas>
         </div >

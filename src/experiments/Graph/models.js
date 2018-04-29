@@ -8,7 +8,7 @@ import { random } from "../../utils";
  * @param {angle: 0,360} direction 
  */
 export function Circle(startX, startY, radius, speed, direction, colorStart, ctx, canvas) {
-    this.color = `hsl(${random(colorStart, colorStart + 100)}, 80%, 45%)`
+    this.color = `hsla(${random(colorStart, colorStart + 50) % 360}, 80%, 45%, alpha)`
     this.radius = radius
     this.speed = speed / 60
     this.direction = direction * 2 * Math.PI / 360
@@ -32,8 +32,8 @@ export function Circle(startX, startY, radius, speed, direction, colorStart, ctx
 
     this.draw = () => {
         this.ctx.beginPath();
-        this.ctx.stokeStyle = this.color
-        this.ctx.fillStyle = this.color
+        this.ctx.stokeStyle = this.color.replace('alpha', '1')
+        this.ctx.fillStyle = this.color.replace('alpha', '1')
         this.ctx.arc(Math.round(this.positionX), Math.round(this.positionY), this.radius, 0, 2 * Math.PI);
         this.ctx.stroke();
         this.ctx.fill()
