@@ -2,7 +2,6 @@ import { Component } from 'inferno'
 import './style.css'
 import { random, arr, px, Scene } from '../../utils';
 import { Circle } from './models';
-import GraphIcon from './assets/GraphIcon';
 
 export default class Graph extends Component {
     state = { paused: false }
@@ -12,6 +11,7 @@ export default class Graph extends Component {
      */
     grd = null
     frameFunc = () => {
+        if (!this.canvas) { return }
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
         this.grd = this.ctx.createLinearGradient(0, 0, 0, this.canvas.height)
         this.grd.addColorStop(0, `hsl(${this.backColor},80%, 25%)`)
@@ -73,7 +73,11 @@ export default class Graph extends Component {
         this.scene.play()
     }
     componentWillUnmount() {
+        this.scene.pause()
         this.scene.destroy()
+        this.scene = null
+        this.ctx = null
+        this.grd = null
     }
     play = () => {
         if (this.state.paused) {

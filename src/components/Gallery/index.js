@@ -1,17 +1,63 @@
 import { Component } from 'inferno'
 import './style.css'
 import Example from '../Example';
+import { withRouter } from 'inferno-router';
+import GalaxyGif from '../../assets/galaxy.gif'
+import GraphGif from '../../assets/graph.gif'
 
 
-export default class Gallery extends Component {
-    state = { showGallery: false }
+const Gallery = withRouter(class Gallery extends Component {
+    constructor() {
+        super()
+        if (window.localStorage.getItem('seenIntro')) {
+            this.state = { showGallery: true }
+        } else {
+            this.state = { showGallery: false }
+        }
+    }
+    seenIntro = () => {
+        this.setState({ showGallery: true })
+        window.localStorage.setItem('seenIntro', 'true')
+        this.animate()
+    }
+    appear = (el) => {
+        let time0 = performance.now()
+        requestAnimationFrame(function animate(time) {
+            let timePassed = time - time0
+            if (timePassed > 250) {
+                timePassed = 250
+            }
+            el.style.opacity = (timePassed / 250).toFixed(2)**2
+            if (timePassed < 250) {
+                requestAnimationFrame(animate)
+            }
+        })
+    }
+    animate = () => {
+        let elems = document.getElementsByClassName('gallery__grid__item')
+        let delay = 0
+        for (let el of elems) {
+            setTimeout(() => this.appear(el), delay)
+            delay += 500
+        }
+    }
+    componentDidMount() {
+        if (window.localStorage.getItem('seenIntro')) {
+            this.animate()
+        }
+    }
     render() {
         return <div className='gallery'>
             {!this.state.showGallery && <div className='gallery__intro'>
                 <span className='gallery__welcome'>Welcome to experiments</span>
-                <span className='gallery__explore'>Explore</span>
+                <span className='gallery__explore' onClick={this.seenIntro}>Explore</span>
             </div>}
-            <Example href={'/galaxy'} />
+            {this.state.showGallery && <div className="gallery__grid">
+                <Example route='/galaxy' history={this.props.history} color='#000' gif={GalaxyGif} />
+                <Example route='/graph' history={this.props.history} color='123' gif={GraphGif} />
+            </div>}
         </div>
     }
-}
+})
+
+export default Gallery

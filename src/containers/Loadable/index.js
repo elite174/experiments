@@ -18,7 +18,6 @@ export default class Loadable extends Component {
     }
 
     render() {
-        console.log(this.state.component)
         if (this.state.component === null) {
             return this.props.loader
         } else {
