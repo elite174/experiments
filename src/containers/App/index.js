@@ -23,6 +23,8 @@ export default class App extends Component {
                     render={() => <Loadable loader={<GalaxyLoader />} toLoad={() => import('../../experiments/Galaxy')} />} />
                 <Route path={`/graph`}
                     render={() => <Loadable loader={<div>Loading...</div>} toLoad={() => import('../../experiments/Graph')} />} />
+                <Route path={`/scroll`}
+                    render={() => <Loadable loader={<div>Loading...</div>} toLoad={() => import('../../experiments/Scroll')} />} />
             </div>
         </HashRouter>
     }
