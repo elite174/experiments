@@ -1,29 +1,64 @@
 import { Component } from 'inferno'
 import ScrollComponent from './ScrollComponent';
+import { setStyle } from '../../../utils';
 
-class Hello extends ScrollComponent {
-    constructor(props) {
-        super(props)
-        let state = {}
-        Object.assign(state, super().state, { length: 1 })
-        this.state = state
+function Animation(selector, property, frames, startComponentState, endComponentState) {
+    this.selector = selector
+    this.property = property
+    let newFrames = []
+    let time = endComponentState - startComponentState
+    for (let frame of frames) {
+        newFrames.push({
+            ...frame,
+            state: Math.round(startComponentState + frame.state * time / 100)
+        })
     }
-    animation = [{
-        selector: 'scroll-hello',
-        property: 'opacity',
-        start: '0%',
-        end: '100%',
-    }]
-    computeAnimation = (props) => {
-        for (let animObj of this.animation) {
+    this.frames = newFrames
+    this.animStart = this.frames[0].state
+    this.animEnd = this.frames[this.frames.length - 1].state
+}
+class Hello extends Component {
+    state = {
+        visible: false,
+        start: Number((this.props.length / 100 * parseFloat(this.props.start)).toFixed(2)),
+        end: Number((this.props.length / 100 * parseFloat(this.props.end)).toFixed(2))
+    }
+    animation = [
+        new Animation('scroll-hello', 'opacity', [
+            {
+                state: 0,
+                value: 0,
+            },
+            {
+                state: 50,
+                value: 1
+            },
+            {
+                state: 100,
+                value: 0
+            }
+        ], this.state.start, this.state.end),
+    ]
+
+    computeAnimation = (scrollState) => {
+        for (let anim of this.animation) {
+            if (scrollState >= anim.animStart && scrollState <= anim.animEnd) {
+                for (let i = 0; i < anim.frames.length - 1; i++) {
+                    if (anim.frames[i].state <= scrollState && anim.frames[i + 1].state >= scrollState) {
+                        setStyle(anim.selector, anim.property,
+                            anim.frames[i].value + ((anim.frames[i + 1].value - anim.frames[i].value) / (anim.frames[i + 1].state - anim.frames[i].state) * (scrollState - anim.frames[i].state)))
+                        break
+                    }
+                }
+            }
         }
     }
     componentWillReceiveProps(nextProps, prevState) {
-        if (nextProps.scrollState >= prevState.start && nextProps.scrollState <= prevState.end) {
+        if (nextProps.scrollState >= this.state.start && nextProps.scrollState <= this.state.end) {
             if (!this.state.visible) {
                 this.setState({ visible: true })
             } else {
-                this.computeAnimation(nextProps)
+                this.computeAnimation(nextProps.scrollState)
             }
         }
     }

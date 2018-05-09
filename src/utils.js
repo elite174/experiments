@@ -20,7 +20,6 @@ export const throttle = (func, limit = 17) => {
         if (!inThrottle) {
             const args = arguments
             const context = this
-            func.call(context, )
             func.apply(context, args)
             inThrottle = true
             setTimeout(() => inThrottle = false, limit)

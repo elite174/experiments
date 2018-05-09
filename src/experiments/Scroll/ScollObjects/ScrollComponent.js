@@ -2,16 +2,15 @@ import { Component } from 'inferno'
 import { cloneVNode } from 'inferno-clone-vnode';
 
 export default class ScrollComponent extends Component {
+    constructor(props){
+        super(props)
+    }
     state = {
         visible: false,
-        start: this.props.length / 100 * this.props.start,
-        end: this.props.length / 100 * this.props.end
+        start: Number((this.props.length / 100 * parseFloat(this.props.start)).toFixed(2)),
+        end: Number((this.props.length / 100 * parseFloat(this.props.end)).toFixed(2))
     }
-    componentWillReceiveProps(nextProps, prevState) {
-        if (nextProps.scrollState >= prevState.start && nextProps.scrollState <= prevState.end && !prevState.visible) {
-            this.setState({ visible: true })
-        }
-    }
+
     render() {
         return null
     }

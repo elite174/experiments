@@ -1,0 +1,19 @@
+.scroll-container {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    opacity: 0;
+    position: absolute;
+}
+
+.scroll-view {
+    opacity: 0;
+    height: 2000px;
+}
+
+.scroll-scene {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    background-color: red;
+}
