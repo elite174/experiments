@@ -5,15 +5,6 @@ import Loadable from '../Loadable';
 import GalaxyLoader from '../../loaders/GalaxyLoader';
 import Gallery from '../../components/Gallery';
 
-const Menu = () => {
-    return <div>
-        <ul>
-            <li><Link to='/galaxy'>Galaxy</Link></li>
-            <li><Link to='/graph'>Graph</Link></li>
-        </ul>
-    </div>
-}
-
 export default class App extends Component {
     render() {
         return <HashRouter>

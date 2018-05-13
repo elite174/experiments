@@ -4,7 +4,7 @@ import Example from '../Example';
 import { withRouter } from 'inferno-router';
 import GalaxyGif from '../../assets/galaxy.gif'
 import GraphGif from '../../assets/graph.gif'
-
+import SquaresGif from '../../assets/squares.gif'
 
 const Gallery = withRouter(class Gallery extends Component {
     constructor() {
@@ -27,7 +27,7 @@ const Gallery = withRouter(class Gallery extends Component {
             if (timePassed > 250) {
                 timePassed = 250
             }
-            el.style.opacity = (timePassed / 250).toFixed(2)**2
+            el.style.opacity = (timePassed / 250).toFixed(2) ** 2
             if (timePassed < 250) {
                 requestAnimationFrame(animate)
             }
@@ -53,8 +53,10 @@ const Gallery = withRouter(class Gallery extends Component {
                 <span className='gallery__explore' onClick={this.seenIntro}>Explore</span>
             </div>}
             {this.state.showGallery && <div className="gallery__grid">
+                <Example route='/squares' history={this.props.history} color='123' gif={SquaresGif} />
                 <Example route='/galaxy' history={this.props.history} color='#000' gif={GalaxyGif} />
                 <Example route='/graph' history={this.props.history} color='123' gif={GraphGif} />
+
             </div>}
         </div>
     }

@@ -1,51 +1,101 @@
 import { Component } from 'inferno'
-import { px } from '../../utils';
+import { px, random } from '../../utils';
 import './style.css'
 export default class Squares extends Component {
-
-    gcd = (a, b) => {
-        if (!b) {
-            return a;
-        }
-        return this.gcd(b, a % b);
-    }
-    renderSquares(S, width, height) {
-        for (let i = 0; i < 20; i++) {
-            for (let j = 0; j < 40; j++) {
+    matrix = []
+    n = 15
+    m = 15
+    animationDelayStep = 80
+    cellSize = 30
+    marginSize = 2
+    squareSize = this.cellSize - 2 * this.marginSize
+    containerWidth = this.cellSize * this.m
+    containerHeight = this.cellSize * this.n
+    renderSquares() {
+        for (let i = 0; i < this.n; i++) {
+            for (let j = 0; j < this.m; j++) {
                 let square = document.createElement('div')
                 square.classList.add('square')
+                square.style.width = px(this.squareSize)
+                square.style.height = px(this.squareSize)
+                square.style.margin = px(this.marginSize)
                 square.id = `square-${i}-${j}`
-                this.container.appendChild(square)
+                this.sqContainer.appendChild(square)
             }
         }
     }
-    over = (e) => {
+
+    startAnim = (e) => {
         let square = e.target
-        let arr = e.target.id.match(/(?:\w+)\-(\d+)\-(\d+)/)
-        let i = Number(arr[1])
-        let j = Number(arr[2])
-        console.log(i, j)
-        /* for (let i1 = i - 1; i1 <= i + 1; i1++) {
-             if (i1 < 0 || i1 > 20) continue
-             for (let j1 = j - 1; j1 <= j + 1; j1++) {
-                 if (j1 < 0 || j1 > 40) continue
-                 if (i1 !== i || j1 !== j) {
-                     document.getElementById(`element-${i1}-${j1}`).style.transform = 'scale(1.4)'
-                 } else {
- 
-                 }
-             }
-         }*/
+        try {
+            let arr = e.target.id.match(/(?:\w+)\-(\d+)\-(\d+)/)
+            let i = Number(arr[1])
+            let j = Number(arr[2])
+            this.wave(i, j)
+        } catch (err) {
+
+        }
+
+    }
+    wave = (i, j) => {
+        for (let k = 1; k <= Math.max(this.n, this.m); k++) {
+            for (let i1 = i - k; i1 <= i + k; i1++) {
+                if (i1 < 0 || i1 >= this.n) continue
+                if (j - k >= 0) setTimeout(() => {
+                    let item = document.getElementById(`square-${i1}-${j - k}`)
+                    if (!item.classList.contains('active')) {
+                        item.classList.toggle('active')
+                        setTimeout(() => item.classList.toggle('active'), 400)
+                    }
+                }, 100 + k * this.animationDelayStep)
+                if (j + k < this.m) setTimeout(() => {
+                    let item = document.getElementById(`square-${i1}-${j + k}`)
+                    if (!item.classList.contains('active')) {
+                        item.classList.toggle('active')
+                        setTimeout(() => item.classList.toggle('active'), 400)
+                    }
+                }, 100 + k * this.animationDelayStep)
+            }
+            for (let j1 = j - k + 1; j1 <= j + k - 1; j1++) {
+                if (j1 < 0 || j1 >= this.m) continue
+                if (i - k >= 0) setTimeout(() => {
+                    let item = document.getElementById(`square-${i - k}-${j1}`)
+                    if (!item.classList.contains('active')) {
+                        item.classList.toggle('active')
+                        setTimeout(() => item.classList.toggle('active'), 400)
+                    }
+                }, 100 + k * this.animationDelayStep)
+                if (i + k < this.n) setTimeout(() => {
+                    let item = document.getElementById(`square-${i + k}-${j1}`)
+                    if (!item.classList.contains('active')) {
+                        item.classList.toggle('active')
+                        setTimeout(() => item.classList.toggle('active'), 400)
+                    }
+                }, 100 + k * this.animationDelayStep)
+            }
+        }
+    }
+    createMatrix = () => {
+        let matrix = []
+        for (let i = 0; i < this.n; i++) {
+            let arr = []
+            for (let j = 0; j < this.m; j++) {
+                arr.push(0)
+            }
+            matrix.push(arr)
+        }
+        this.matrix = matrix
     }
     componentDidMount() {
-        let container = this.container.getBoundingClientRect()
-        let S = container.width * container.height
-        this.renderSquares(S, container.width, container.height)
+        this.renderSquares()
+        this.createMatrix()
     }
     render() {
         return <div className='squares-container'>
-            <div className='square-group' ref={container => this.container = container}
-                onMouseOver={this.over}>
+            <div className='squares-layer-container' style={{ width: this.containerWidth, height: this.containerHeight }}>
+                <div className='square-group' style={{ width: this.containerWidth, height: this.containerHeight }} ref={sqContainer => this.sqContainer = sqContainer}
+                    onClick={this.startAnim}>
+                </div>
             </div>
         </div>
     }
