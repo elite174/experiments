@@ -56,7 +56,6 @@ const Gallery = withRouter(class Gallery extends Component {
                 <Example route='/squares' history={this.props.history} color='123' gif={SquaresGif} />
                 <Example route='/galaxy' history={this.props.history} color='#000' gif={GalaxyGif} />
                 <Example route='/graph' history={this.props.history} color='123' gif={GraphGif} />
-
             </div>}
         </div>
     }
