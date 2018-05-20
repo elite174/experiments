@@ -6,10 +6,17 @@
  */
 export const setStyles = (selector, propsToAnimate) => {
     let elements = document.getElementsByClassName(selector)
+    let transformProperty
     for (let el of elements) {
+        transformProperty = ''
         for (let prop of propsToAnimate) {
-            el.style[prop.property] = `${prop.value}${prop.unit}`
+            if (prop.transform) {
+                transformProperty += ` ${prop.property}(${prop.value}${prop.unit})`
+            } else {
+                el.style[prop.property] = `${prop.value}${prop.unit}`
+            }
         }
+        el.style.transform = transformProperty
     }
 }
 
@@ -29,6 +36,7 @@ export function Animation(selector, properties, startComponentState, endComponen
             property: property.property,
             keyframes: newkeyframes,
             unit: property.unit,
+            transform: property.transform,
             animStart: newkeyframes[0].state,
             animEnd: newkeyframes[newkeyframes.length - 1].state
         })

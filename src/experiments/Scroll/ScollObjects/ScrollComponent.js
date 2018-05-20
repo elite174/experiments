@@ -7,7 +7,7 @@ export default function ScrollComponent(WrappedComponent) {
         constructor(props) {
             super(props)
             this.state = {
-                visible: false,
+                visible: Number((this.props.length / 100 * parseFloat(this.props.start)).toFixed(2)) >= 0,
                 start: Number((this.props.length / 100 * parseFloat(this.props.start)).toFixed(2)),
                 end: Number((this.props.length / 100 * parseFloat(this.props.end)).toFixed(2))
             }
@@ -26,7 +26,8 @@ export default function ScrollComponent(WrappedComponent) {
                                 propsToAnimate.push({
                                     property: property.property,
                                     value: property.keyframes[i].value + ((property.keyframes[i + 1].value - property.keyframes[i].value) / (property.keyframes[i + 1].state - property.keyframes[i].state) * (scrollState - property.keyframes[i].state)),
-                                    unit: property.unit
+                                    unit: property.unit,
+                                    transform: property.transform
                                 })
                                 break
                             }
@@ -38,7 +39,6 @@ export default function ScrollComponent(WrappedComponent) {
         }
 
         componentWillReceiveProps(nextProps, prevState) {
-            console.log(nextProps, this.state)
             if (nextProps.scrollState >= this.state.start && nextProps.scrollState <= this.state.end) {
                 if (!this.state.visible) {
                     this.setState({ visible: true }, () => this.computeAnimation(nextProps.scrollState))
@@ -53,7 +53,7 @@ export default function ScrollComponent(WrappedComponent) {
         }
 
         render() {
-            return this.state.visible ? <WrappedComponent start={this.state.start} end={this.state.end} /> : null
+            return this.state.visible ? <WrappedComponent start={this.state.start} end={this.state.end} {...this.props} /> : null
         }
     }
 }
