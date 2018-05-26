@@ -38,9 +38,7 @@ export const Scene = (func, fps = 60, args = []) => {
         },
         play: () => {
             paused = false
-            timer = setInterval(() => requestAnimationFrame(() => {
-                func(...args)
-            }), time)
+            timer = setInterval(func, 16)
         },
         isPaused: () => {
             return paused
