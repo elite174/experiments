@@ -4,6 +4,7 @@ import './style.css'
 import Loadable from '../Loadable';
 import GalaxyLoader from '../../loaders/GalaxyLoader';
 import Gallery from '../../components/Gallery';
+import Shader from '../../experiments/Shader';
 
 export default class App extends Component {
     render() {
@@ -18,6 +19,8 @@ export default class App extends Component {
                     render={() => <Loadable loader={<div>Loading...</div>} toLoad={() => import('../../experiments/Scroll')} />} />
                 <Route path={'/squares'}
                     render={() => <Loadable loader={<div>Loading...</div>} toLoad={() => import('../../experiments/Squares')} />} />
+                    <Route path={'/shader'}
+                    render={() => <Loadable loader={<div>Loading...</div>} toLoad={() => import('../../experiments/Shader')} />} />
             </div>
         </HashRouter>
     }

@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://elite174.github.io/experiments/",
   "dependencies": {
+    "glslCanvas": "^0.0.25",
     "inferno": "^5.0.4",
     "inferno-router": "^5.0.4",
     "inferno-scripts": "6.3.0"
