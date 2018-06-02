@@ -1,0 +1,137 @@
+.detroit-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+}
+
+.triangle-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.image-container {
+    position: relative;
+    bottom: 0;
+    width: 90%;
+    height: 80%;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.image-caption {
+    position: absolute;
+    width: 100%;
+    top: -60px;
+    font-weight: 800;
+    font-size: 50px;
+    text-align: center;
+    letter-spacing: 30px;
+    animation-name: caption-appear;
+    animation-duration: 3s;
+    animation-iteration-count: 1;
+}
+
+@keyframes caption-appear {
+    from{
+        letter-spacing: 70px;
+    }
+    to{
+        letter-spacing: 30px;
+    }
+}
+
+.o {
+    animation-duration: 3s;
+    animation-name: o-color;
+    animation-iteration-count: infinite;
+}
+
+@keyframes o-color {
+    0% {
+        color: rgb(99, 201, 245);
+    }
+    18% {
+        color: rgb(99, 201, 245);
+    }
+    20% {
+        color: rgb(229, 234, 106);
+    }
+    22% {
+        color: rgb(99, 201, 245);
+    }
+    43% {
+        color: rgb(99, 201, 245);
+    }
+    45% {
+        color: rgb(229, 234, 106);
+    }
+    79% {
+        color: rgb(229, 234, 106);
+    }
+    81% {
+        color: rgb(99, 201, 245);
+    }
+    100% {
+        color: rgb(99, 201, 245);
+    }
+}
+
+.fragment-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    transform-style: preserve-3d;
+    perspective: 800px;
+    opacity: 1;
+    transition-property: opacity;
+    will-change: opacity;
+}
+
+.fragment-container.hidden {
+    opacity: 0;
+}
+
+.fragment-piece {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.fragment-piece-wrap, .fragment-piece, .fragment-shadow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.fragment-piece-wrap {
+    transform: translateZ(0.0001px);
+    will-change: transform;
+    transition-property: transform;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.fragment-shadow {
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    will-change: opacity;
+    transition-property: opacity;
+}
+
+.fragment-container.active .fragment-shadow {
+    opacity: 1;
+}

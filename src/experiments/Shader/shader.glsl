@@ -24,6 +24,6 @@ void main(){
     vec2 toCenter = vec2(0.5)-st;
     float angle = atan(toCenter.y,toCenter.x);
     float radius = length(toCenter)*2.0;
-    color = vec3(abs(sin(u_time)));
+    color = vec3(abs(sin(u_time)),1.,0.5);
     gl_FragColor = vec4(color,1.0);
 }

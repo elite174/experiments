@@ -4,6 +4,19 @@
     background-repeat: no-repeat;
     background-size: cover;
     opacity: 0;
+    flex-shrink: 0;
+    border-radius: 10px;
+    margin: 20px;
+    height: 300px;
+    width: 300px;
+    will-change: transform;
+    transition-property: transform;
+    transition-duration: 250ms;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+}
+
+.example:hover {
+    transform: translateY(-5px);
 }
 
 .example__curtain {
