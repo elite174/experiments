@@ -22,6 +22,14 @@
     height: 80%;
     flex-shrink: 0;
     cursor: pointer;
+    opacity: 0;
+    will-change: opacity;
+    transition-duration: 1s;
+    transition-property: opacity
+}
+
+.image-container.active {
+    opacity: 1;
 }
 
 .image-caption {
@@ -38,10 +46,10 @@
 }
 
 @keyframes caption-appear {
-    from{
+    from {
         letter-spacing: 70px;
     }
-    to{
+    to {
         letter-spacing: 30px;
     }
 }

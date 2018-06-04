@@ -121,6 +121,7 @@ export default class Detroit extends Component {
     componentDidMount() {
         this.drawTriangles()
         this.fragmenter(this.imageContainer, Image)
+        setTimeout(() => { this.imageContainer.classList.toggle('active') }, 1000)
     }
     render() {
         return (

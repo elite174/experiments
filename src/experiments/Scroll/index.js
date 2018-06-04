@@ -10,7 +10,7 @@ export default class Scroll extends Component {
         self.setState({ scrollState: e.target.scrollTop })
     })
     WPAnim = [{
-        selector: 'wanna-parallax',
+        selector: 'text-container',
         properties: [
             {
                 property: 'scale',

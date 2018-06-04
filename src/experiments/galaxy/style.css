@@ -15,8 +15,8 @@
   transition-duration: 1s;
   height: 110%;
   width: 110%;
-  padding-left: -5%;
-  padding-top: -5%;
+  margin-left: -5%;
+  margin-top: -5%;
 }
 
 .galaxy__back--1 {
@@ -75,7 +75,7 @@
 
 .galaxy__button-control {
   position: absolute;
-  top: 0;
+  top:10%;
   right: 0;
   width: fit-content;
   display: flex;

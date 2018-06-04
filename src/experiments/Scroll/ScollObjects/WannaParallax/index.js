@@ -4,7 +4,9 @@ import './style.css'
 
 const WannaParallax = ScrollComponent(class extends Component {
     render() {
-        return <div className='wanna-parallax' style={{ left: window.innerWidth / 2 }}>Wanna parallax?</div>
+        return <div className='text-container'>
+            <div className='text'>There are several movies I like</div>
+        </div>
     }
 })
 
