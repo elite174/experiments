@@ -2,29 +2,185 @@ import { Component } from 'inferno'
 import './style.css'
 import { throttle } from '../../utils';
 import WannaParallax from './ScollObjects/WannaParallax';
+import Slide from './ScollObjects/Slide';
 
 export default class Scroll extends Component {
     state = { scrollState: 0 }
-    height = 2000
+    height = 10000
     scroll = throttle((e, self = this) => {
         self.setState({ scrollState: e.target.scrollTop })
     })
     WPAnim = [{
-        selector: 'text-container',
+        selector: 'there',
+        properties: [{
+            property: 'translateY',
+            keyframes: [{
+                state: 0,
+                value: 50
+            }, {
+                state: 20,
+                value: 0
+            }],
+            unit: 'px',
+            transform: true
+        },
+        {
+            property: 'translateX',
+            keyframes: [{
+                state: 0,
+                value: 50
+            }, {
+                state: 20,
+                value: 0
+            }],
+            unit: 'px',
+            transform: true
+        },
+        {
+            property: 'opacity',
+            keyframes: [{
+                state: 0,
+                value: 0
+            }, {
+                state: 20,
+                value: 1
+            }],
+            unit: ''
+        }]
+    },
+    {
+        selector: 'is',
+        properties: [{
+            property: 'translateY',
+            keyframes: [{
+                state: 20,
+                value: -100
+            }, {
+                state: 40,
+                value: 0
+            }],
+            unit: 'px',
+            transform: true
+        },
+        {
+            property: 'opacity',
+            keyframes: [{
+                state: 20,
+                value: 0
+            }, {
+                state: 40,
+                value: 1
+            }],
+            unit: ''
+        }]
+    },
+    {
+        selector: 'a',
+        properties: [{
+            property: 'translateY',
+            keyframes: [{
+                state: 40,
+                value: 150
+            }, {
+                state: 60,
+                value: 0
+            }],
+            unit: 'px',
+            transform: true
+        },
+        {
+            property: 'opacity',
+            keyframes: [{
+                state: 40,
+                value: 0
+            }, {
+                state: 60,
+                value: 1
+            }],
+            unit: ''
+        }]
+    },
+    {
+        selector: 'cat',
+        properties: [{
+            property: 'translateZ',
+            keyframes: [{
+                state: 60,
+                value: 200
+            }, {
+                state: 100,
+                value: 0
+            }],
+            unit: 'px',
+            transform: true
+        },
+        {
+            property: 'opacity',
+            keyframes: [{
+                state: 60,
+                value: 0
+            }, {
+                state: 100,
+                value: 1
+            }],
+            unit: ''
+        }]
+    }]
+    SlideAnimation = [{
+        selector: 'slide-header',
         properties: [
             {
-                property: 'scale',
+                property: 'translateX',
                 keyframes: [{
                     state: 0,
-                    value: 1
+                    value: -150
+                },
+                {
+                    state: 25,
+                    value: 0
+                },
+                {
+                    state: 75,
+                    value: 0
                 },
                 {
                     state: 100,
-                    value: 2
+                    value: -150
                 }],
-                unit: '',
+                unit: 'px',
                 transform: true
-            },
+            }
+        ]
+    },
+    {
+        selector: 'slide-image',
+        properties: [
+            {
+                property: 'translateY',
+                keyframes: [{
+                    state: 0,
+                    value: 75
+                },
+                {
+                    state: 25,
+                    value: 0
+                },
+                {
+                    state: 75,
+                    value: 0
+                },
+                {
+                    state: 100,
+                    value: 75
+                }],
+                unit: 'px',
+                transform: true
+            }
+        ]
+    },
+    {
+        selector: 'slide-text',
+        properties: [
             {
                 property: 'opacity',
                 keyframes: [{
@@ -32,97 +188,15 @@ export default class Scroll extends Component {
                     value: 0
                 },
                 {
-                    state: 33,
-                    value: 1
-                },
-                {
-                    state: 66,
-                    value: 1
-                }, {
                     state: 100,
-                    value: 0
+                    value: 1
                 }],
                 unit: ''
-            }, {
-                property: 'translateY',
-                keyframes: [{
-                    state: 0,
-                    value: 50
-                }, {
-                    state: 100,
-                    value: 0
-                }],
-                unit: 'px',
-                transform: true
             }
         ]
-    }]
+    },
+    ]
     render() {
-        /*  <Hello animation={[{
-              selector: 'scroll-hello', properties: [
-                  {
-                      property: 'opacity',
-                      keyframes: [
-                          {
-                              state: 0,
-                              value: 0,
-                          },
-                          {
-                              state: 50,
-                              value: 1
-                          },
-                          {
-                              state: 100,
-                              value: 0
-                          }
-                      ],
-                      unit: ''
-                  },
-                  {
-                      property: 'top',
-                      keyframes: [
-                          {
-                              state: 50,
-                              value: 0
-                          },
-                          {
-                              state: 100,
-                              value: 100
-                          }
-                      ],
-                      unit: 'px'
-                  },
-                  {
-                      property: 'rotate',
-                      keyframes: [{
-                          state: 50,
-                          value: 0
-                      },
-                      {
-                          state: 100,
-                          value: 360
-                      }
-                      ],
-                      unit: 'deg',
-                      transform: true
-                  }, {
-                      property: 'scale',
-                      keyframes: [{
-                          state: 50,
-                          value: 1
-                      }, {
-                          state: 100,
-                          value: 2
-                      }],
-                      unit: '',
-                      transform: true
-                  },
-              ]
-          }]} scrollState={this.state.scrollState} start='0.0%' end='50.0%' length={this.height}
-              style={{ left: i * 10 }} key={i} />
-      )
-  }*/
-
         return (
             <div className='scroll-scene' >
                 <div className='scroll-container' onScroll={this.scroll}>
@@ -131,6 +205,8 @@ export default class Scroll extends Component {
                     </div>
                 </div>
                 <WannaParallax animation={this.WPAnim} scrollState={this.state.scrollState} start='0%' end='30%'
+                    length={this.height} />
+                <Slide animation={this.SlideAnimation} scrollState={this.state.scrollState} start='30%' end='60%'
                     length={this.height} />
             </div>
         )

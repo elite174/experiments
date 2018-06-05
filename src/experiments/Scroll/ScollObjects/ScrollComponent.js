@@ -12,8 +12,10 @@ export default function ScrollComponent(WrappedComponent) {
                 end: Number((this.props.length / 100 * parseFloat(this.props.end)).toFixed(2))
             }
             this.animation = []
-            for (let anim of this.props.animation) {
-                this.animation.push(new Animation(anim.selector, anim.properties, this.state.start, this.state.end))
+            if (Array.isArray(this.props.animation)) {
+                for (let anim of this.props.animation) {
+                    this.animation.push(new Animation(anim.selector, anim.properties, this.state.start, this.state.end))
+                }
             }
         }
         computeAnimation = (scrollState) => {
